@@ -229,7 +229,7 @@ export default function ChatHistory(props: ChatHistoryProps) {
         let conversationFetchURL = "";
 
         if (props.conversationId) {
-            conversationFetchURL = `/api/chat/sessions/${props.conversationId}`;
+            conversationFetchURL = `/api/chat/conversation/${props.conversationId}`;
         } else if (props.publicConversationSlug) {
             conversationFetchURL = `/api/chat/share/sessions?client=web&public_conversation_slug=${props.publicConversationSlug}&n=${maxMessagesToFetch}`;
         } else {
@@ -247,13 +247,19 @@ export default function ChatHistory(props: ChatHistoryProps) {
                     chatData.response.chat &&
                     chatData.response.chat.length > 0
                 ) {
-                    setCurrentPage(Math.ceil(chatData.response.chat.length / fetchMessageCount));
-                    if (chatData.response.chat.length === data?.chat.length) {
+                    setCurrentPage(Math.ceil(chatData?.response?.messages?.length / fetchMessageCount));
+                    if (chatData.response.chat.length === data?.messages.length) {
                         setHasMoreMessages(false);
                         setFetchingData(false);
                         return;
                     }
-                    props.setAgent(chatData.response.agent);
+                    // props.setAgent({
+                    //     id: 3
+                    //     name: "Khoj",
+                    //     slug: "khoj",
+                    //     color: "#000000",
+                    //     icon: "lightbulb",
+                    // });
                     setData(chatData.response);
                     setFetchingData(false);
                     if (currentPage === 0) {
@@ -262,15 +268,15 @@ export default function ChatHistory(props: ChatHistoryProps) {
                         adjustScrollPosition();
                     }
                 } else {
-                    if (chatData.response.agent && chatData.response.conversation_id) {
+                    if (chatData.response.agent && chatData.response.id) {
                         const chatMetadata = {
                             chat: [],
-                            agent: chatData.response.agent,
-                            conversation_id: chatData.response.conversation_id,
-                            slug: chatData.slug,
-                            is_owner: chatData.response.is_owner,
+                            agent: {},
+                            conversation_id: chatData.response.id,
+                            slug: 'Test chat',
+                            is_owner: chatData?.response?.is_owner,
                         };
-                        props.setAgent(chatData.response.agent);
+                        // props.setAgent(chatData.response.agent);
                         setData(chatMetadata);
                         if (props.setIsChatSideBarOpen) {
                             if (!hasStartingMessage) {

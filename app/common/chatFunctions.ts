@@ -269,7 +269,7 @@ export async function createNewConversation(slug: string) {
             },
             file_filters: [],
         };
-        const response = await fetch(`/api/chat/sessions`, {
+        const response = await fetch(`/api/chat/conversation`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

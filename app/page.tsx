@@ -388,7 +388,7 @@ export default function Home() {
     }, [uploadedFiles]);
 
     useEffect(() => {
-        fetch("/api/chat/options")
+        fetch("/api/chat/conversations")
             .then((response) => response.json())
             .then((data: ChatOptions) => {
                 setLoading(false);

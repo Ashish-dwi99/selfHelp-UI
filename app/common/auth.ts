@@ -19,7 +19,7 @@ const fetcher = (url: string) =>
 		.catch((err) => console.warn(err));
 
 export function useAuthenticatedData() {
-	const { data, error, isLoading } = useSWR<UserProfile>("/api/v1/user", fetcher, {
+	const { data, error, isLoading } = useSWR<UserProfile>("/auth/me", fetcher, {
 		revalidateOnFocus: false,
 	});
 

@@ -218,7 +218,7 @@ export default function Chat() {
     const [isChatSideBarOpen, setIsChatSideBarOpen] = useState(false);
 
     useEffect(() => {
-        fetch("/api/chat/options")
+        fetch("/api/chat/conversations")
             .then((response) => response.json())
             .then((data: ChatOptions) => {
                 setLoading(false);
